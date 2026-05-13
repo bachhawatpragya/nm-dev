@@ -1,23 +1,23 @@
 # rsnm-dev
 
-A read-only Reddit news monitoring platform that aggregates public Reddit posts and allows users to discover and filter content based on their interests and requirements.
+A read-only posts monitoring platform that aggregates public Reddit posts and presents them in a searchable, filterable dashboard.
 
 ## Overview
 
 rsnm-dev fetches publicly available Reddit posts from selected subreddits via the official Reddit API and presents them in a structured, filterable dashboard. Users can browse trending discussions, filter by topic or subreddit, and monitor content relevant to their interests.
 
-## What it does
+## Features
 
-- Fetches public posts from selected subreddits via Reddit's official OAuth API
+- Fetches public posts from selected subreddits via Reddit's OAuth API
 - Stores and indexes post metadata in PostgreSQL for fast querying
 - Serves filtered, searchable post feeds to the frontend
-- Displays trends and post analytics via Chart.js visualizations
-- Allows users to filter content by subreddit, topic, score, and date
+- Displays trends and analytics using Chart.js
+- Filter posts by subreddit, topic, score, and date
 
 ## What it does NOT do
 
-- Post, comment, vote, or interact with Reddit in any way
-- Access private subreddits or restricted content
+- Post, comment, vote, or otherwise interact with Reddit
+- Access private or restricted subreddits
 - Profile or store individual user data
 - Exceed Reddit API rate limits
 - Share or sell Reddit data to third parties
@@ -26,36 +26,40 @@ rsnm-dev fetches publicly available Reddit posts from selected subreddits via th
 
 `r/programming` · `r/webdev` · `r/Python` · `r/MachineLearning` · `r/datascience` · `r/javascript` · `r/devops` · `r/opensource` · `r/technology` · `r/news`
 
-## Tech Stack
+## Getting Started
 
-| Layer | Technology |
-|-------|-----------|
-| Frontend | React + Vite, Axios, SWR, Chart.js |
-| Backend | Node.js, Express |
-| Database | PostgreSQL + Prisma ORM |
-| Reddit API | Axios (direct OAuth endpoints) |
-| Scheduler | node-cron |
-| Infra | Docker + docker-compose |
+### Prerequisites
 
-## Project Structure
+- Docker + Docker Compose
+- Reddit API credentials (client ID + secret)
 
+### 1. Clone the repo
+
+```bash
+git clone https://github.com/yourusername/rsnm-dev.git
+cd rsnm-dev
 ```
-rsnm-dev/
-├── frontend/                  # React + Vite dashboard
-│   ├── src/
-│   │   ├── components/        # UI components
-│   │   ├── hooks/             # SWR data fetching hooks
-│   │   └── pages/             # Dashboard pages
-│   └── package.json
-├── backend/                   # Node.js + Express API
-│   ├── src/
-│   │   ├── routes/            # REST API endpoints
-│   │   ├── jobs/              # Cron jobs for Reddit fetching
-│   │   ├── reddit/            # Reddit OAuth + fetcher
-│   │   └── middleware/        # Auth, error handling
-│   ├── prisma/
-│   │   └── schema.prisma      # Database schema
-│   └── package.json
+
+### 2. Configure environment
+
+Copy the example environment file and fill in your credentials:
+
+```bash
+cp .env.example .env
+# Fill in REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET, and DB values
+```
+
+Note: Docker Compose runs the backend on port `3000` (see `docker-compose.yml`). If you run the backend locally, set `PORT=3000` in your `.env` to match the Docker setup.
+
+### 3. Run with Docker
+
+```bash
+docker-compose up --build
+```
+
+- Frontend: http://localhost:5173
+- Backend API: http://localhost:3000
+- PostgreSQL: localhost:5432
 ├── docker-compose.yml
 ├── .env.example
 └── README.md
@@ -89,7 +93,7 @@ docker-compose up --build
 ```
 
 - Frontend: http://localhost:5173
-- Backend API: http://localhost:4000
+- Backend API: http://localhost:3000
 - PostgreSQL: localhost:5432
 
 ## Reddit API Compliance
