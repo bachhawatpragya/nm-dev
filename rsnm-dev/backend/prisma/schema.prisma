@@ -1,0 +1,32 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Post {
+  id           String   @id // Reddit post ID
+  title        String
+  subreddit    String
+  score        Int
+  upvoteRatio  Float
+  commentCount Int
+  flair        String?
+  permalink    String
+  createdUtc   DateTime
+  fetchedAt    DateTime @default(now())
+
+  @@index([subreddit])
+  @@index([createdUtc])
+  @@index([score])
+}
+
+model Subreddit {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
